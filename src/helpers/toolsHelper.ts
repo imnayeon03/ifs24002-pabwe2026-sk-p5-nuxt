@@ -1,15 +1,17 @@
-import Swal from "sweetalert2";
+// SweetAlert2 dimuat lazy: baru diunduh saat dialog pertama kali dibutuhkan,
+// sehingga tidak membebani bundle awal (Lighthouse: reduce unused JavaScript).
+const loadSwal = async () => (await import("sweetalert2")).default;
 
 export function showSuccessDialog(message: string) {
-  return Swal.fire({ icon: "success", title: "Berhasil", text: message, confirmButtonColor: "#4f46e5" });
+  return loadSwal().then((Swal) => Swal.fire({ icon: "success", title: "Berhasil", text: message, confirmButtonColor: "#4f46e5" }));
 }
 
 export function showErrorDialog(message: string) {
-  return Swal.fire({ icon: "error", title: "Gagal", text: message, confirmButtonColor: "#4f46e5" });
+  return loadSwal().then((Swal) => Swal.fire({ icon: "error", title: "Gagal", text: message, confirmButtonColor: "#4f46e5" }));
 }
 
 export function showWarningDialog(message: string) {
-  return Swal.fire({ icon: "warning", title: "Perhatian", text: message, confirmButtonColor: "#4f46e5" });
+  return loadSwal().then((Swal) => Swal.fire({ icon: "warning", title: "Perhatian", text: message, confirmButtonColor: "#4f46e5" }));
 }
 
 /** Dialog konfirmasi. Mengembalikan true jika pengguna menekan tombol konfirmasi. */
@@ -18,6 +20,7 @@ export async function showConfirmDialog(
   text: string,
   confirmText = "Ya"
 ): Promise<boolean> {
+  const Swal = await loadSwal();
   const result = await Swal.fire({
     icon: "question",
     title,
