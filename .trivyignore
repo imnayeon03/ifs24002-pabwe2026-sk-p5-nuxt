@@ -1,0 +1,15 @@
+# Trivy ignore file
+# Development / build-time dependency vulnerabilities without production impact
+
+# node-forge (via listhen -> @nuxt/cli / nitropack)
+CVE-2026-33894
+CVE-2026-85393
+GHSA-86w9-cpqp-85rv
+
+# @simple-git/argv-parser (via simple-git -> @nuxt/devtools)
+CVE-2026-102829
+GHSA-v5rq-49vh-5v5c
+
+# braces (via micromatch -> build tools, no upstream patch available)
+CVE-2026-93687
+GHSA-vfj7-8cjw-p6xm
